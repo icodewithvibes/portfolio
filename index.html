@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuriel Gonzalez — Motion Design &amp; Commercial Direction</title>
+<meta name="description" content="Yuriel Gonzalez is a motion designer crafting premium commercial spots for tech, beverage, and education brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a; --white:#f5f4f0; --gray:#9a9aa2; --line:rgba(245,244,240,.14);
+    --serif:'Playfair Display',Georgia,serif; --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--black);color:var(--white);line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(245,244,240,.2)}
+
+  /* ---------- Nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+      padding:20px 5vw;mix-blend-mode:difference}
+  .nav-name{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:#fff;text-decoration:none;letter-spacing:.02em}
+  .nav-links{display:flex;gap:28px}
+  .nav-links a{color:#fff;text-decoration:none;font-size:.72rem;text-transform:uppercase;letter-spacing:.22em;opacity:.75;transition:opacity .3s}
+  .nav-links a:hover{opacity:1}
+  @media(max-width:640px){.nav-links{gap:16px}.nav-links a{font-size:.62rem;letter-spacing:.14em}}
+
+  /* ---------- Shared section scaffolding ---------- */
+  section{position:relative;overflow:hidden}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 5vw;position:relative;z-index:2}
+  .kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.34em;opacity:.55;margin-bottom:18px}
+  .headline{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(2.2rem,5.5vw,4.4rem);line-height:1.12;letter-spacing:-.01em}
+  .sub{max-width:560px;font-size:1rem;opacity:.72;margin-top:22px}
+  .ambient{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity 1.6s ease;pointer-events:none;filter:blur(2px) saturate(.9)}
+  section.visible .ambient{opacity:.42}
+  .veil{position:absolute;inset:0;z-index:1;pointer-events:none}
+
+  .fade{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+  section.visible .fade{opacity:1;transform:none}
+  .fade.d1{transition-delay:.12s}.fade.d2{transition-delay:.24s}.fade.d3{transition-delay:.36s}
+
+  /* ---------- Hero ---------- */
+  #hero{min-height:100vh;display:flex;align-items:center;background:var(--black)}
+  #hero .veil{background:radial-gradient(ellipse at 50% 120%,rgba(255,255,255,.06),transparent 60%)}
+  #hero .headline{font-size:clamp(2.8rem,7vw,6rem)}
+  #hero .kicker{margin-bottom:26px}
+  .hero-foot{display:flex;gap:42px;margin-top:56px;flex-wrap:wrap}
+  .hero-foot div{font-size:.78rem;letter-spacing:.06em;opacity:.55}
+  .scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;opacity:.4;z-index:2}
+
+  /* ---------- Work sections ---------- */
+  .work{min-height:100vh;padding:130px 0 140px;display:flex;align-items:center}
+  .case{display:grid;grid-template-columns:1fr;gap:44px;width:100%}
+  .player{width:100%;border-radius:10px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);display:block}
+  .player video{width:100%;display:block;border-radius:10px}
+  .meta{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;font-size:.74rem;text-transform:uppercase;letter-spacing:.2em;opacity:.6}
+
+  /* Tech — VELA : black / white / silver */
+  #tech{background:#0a0a0a;color:#f5f4f0}
+  #tech .veil{background:linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,.15) 40%,rgba(10,10,10,.65))}
+  #tech .headline em{color:#c9c9d2}
+  #tech .player{box-shadow:0 30px 90px rgba(0,0,0,.8);outline:1px solid rgba(201,201,210,.18)}
+  #tech .kicker,#tech .meta{color:#c9c9d2}
+
+  /* Beverage — Slake : cream / sage / amber */
+  #beverage{background:#f2efe6;color:#26291f}
+  #beverage .veil{background:linear-gradient(180deg,rgba(242,239,230,.6),rgba(242,239,230,.1) 40%,rgba(242,239,230,.7))}
+  #beverage .kicker{color:#7d8f6a;opacity:.9}
+  #beverage .headline em{color:#b97f22}
+  #beverage .sub{opacity:.8}
+  #beverage .meta{color:#66755a;opacity:.9}
+  #beverage .player{box-shadow:0 30px 80px rgba(96,84,40,.28);outline:1px solid rgba(125,143,106,.35)}
+  #beverage ::selection{background:rgba(185,127,34,.25)}
+
+  /* Education — BrightPath : deep navy / purple→teal */
+  #education{background:#0b0e1a;color:#eef0f8}
+  #education .veil{background:linear-gradient(180deg,rgba(11,14,26,.6),rgba(11,14,26,.15) 40%,rgba(11,14,26,.7))}
+  #education .kicker{background:linear-gradient(90deg,#a78bfa,#2dd4bf);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:1}
+  #education .headline em{background:linear-gradient(90deg,#a78bfa,#2dd4bf);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #education .player{box-shadow:0 30px 90px rgba(45,20,90,.5);outline:1px solid rgba(139,92,246,.28)}
+  #education .meta{color:#8f9bd4}
+
+  /* ---------- Services ---------- */
+  #services{background:var(--black);padding:150px 0}
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);margin-top:64px;border:1px solid var(--line)}
+  .svc{background:var(--black);padding:42px 34px;transition:background .4s}
+  .svc:hover{background:#111114}
+  .svc h3{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.35rem;margin-bottom:14px}
+  .svc p{font-size:.9rem;opacity:.62}
+  .svc span{font-size:.68rem;letter-spacing:.28em;opacity:.4;display:block;margin-bottom:20px}
+
+  /* ---------- Contact ---------- */
+  #contact{background:var(--black);padding:150px 0 90px;border-top:1px solid var(--line);text-align:center}
+  #contact .headline{margin-bottom:26px}
+  .email{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,3.4vw,2.3rem);color:var(--white);text-decoration:none;border-bottom:1px solid rgba(245,244,240,.3);padding-bottom:4px;transition:border-color .3s}
+  .email:hover{border-color:var(--white)}
+  footer{margin-top:110px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.35}
+
+  @media(max-width:640px){
+    .work{padding:90px 0 100px}
+    .hero-foot{gap:22px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .fade{transition:none;opacity:1;transform:none}
+    .ambient{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="#hero">Yuriel Gonzalez</a>
+  <div class="nav-links">
+    <a href="#tech">Work</a><a href="#services">Services</a><a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="visible">
+  <div class="veil"></div>
+  <div class="wrap">
+    <p class="kicker fade">Motion Design · Commercial Direction</p>
+    <h1 class="headline fade d1">Brands in <em>motion,</em><br>stories in seconds.</h1>
+    <p class="sub fade d2">I'm Yuriel Gonzalez, a motion designer and commercial director crafting premium 15-second brand films. From concept and storyboard to final grade, I build spots engineered to hold attention from the first frame to the last.</p>
+    <div class="hero-foot fade d3">
+      <div>Tech · Beverage · Education</div>
+      <div>Concept → Storyboard → Final Cut</div>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<!-- TECH -->
+<section id="tech" class="work">
+  <video class="ambient" src="assets/ambient-tech.mp4" muted loop playsinline preload="none"></video>
+  <div class="veil"></div>
+  <div class="wrap case">
+    <div>
+      <p class="kicker fade">01 · Tech &amp; Wearables</p>
+      <h2 class="headline fade d1">VELA — <em>wear the future.</em></h2>
+      <p class="sub fade d2">A monochrome launch film for a titanium smart ring. Volumetric light, liquid-chrome reflections, and a slow cinematic build resolving into a static logo lock — restraint as a statement.</p>
+    </div>
+    <div class="fade d2">
+      <div class="player"><video src="assets/vela-tech.mp4" controls playsinline preload="metadata"></video></div>
+      <div class="meta"><span>15s Launch Spot</span><span>Product Film</span><span>Monochrome</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BEVERAGE -->
+<section id="beverage" class="work">
+  <video class="ambient" src="assets/ambient-beverage.mp4" muted loop playsinline preload="none"></video>
+  <div class="veil"></div>
+  <div class="wrap case">
+    <div>
+      <p class="kicker fade">02 · Food &amp; Beverage</p>
+      <h2 class="headline fade d1">Slake — <em>cold-pressed refreshment.</em></h2>
+      <p class="sub fade d2">A high-energy summer spot for a premium iced tea. Frozen splash crowns, shattering ice, and condensation macro work — kinetic refreshment cut at commercial pace, closing on a clean product hero.</p>
+    </div>
+    <div class="fade d2">
+      <div class="player"><video src="assets/slake-beverage.mp4" controls playsinline preload="metadata"></video></div>
+      <div class="meta"><span>15s Summer Campaign</span><span>CGI Liquid</span><span>High-Speed Freeze</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="work">
+  <video class="ambient" src="assets/ambient-education.mp4" muted loop playsinline preload="none"></video>
+  <div class="veil"></div>
+  <div class="wrap case">
+    <div>
+      <p class="kicker fade">03 · Education &amp; SaaS</p>
+      <h2 class="headline fade d1">BrightPath — <em>code your future.</em></h2>
+      <p class="sub fade d2">A premium brand film for a kids' coding platform. One luminous path drawn through darkness, building steadily to a single radiant peak — then a typed-in wordmark close. Minimal, confident, launch-grade.</p>
+    </div>
+    <div class="fade d2">
+      <div class="player"><video src="assets/brightpath-education.mp4" controls playsinline preload="metadata"></video></div>
+      <div class="meta"><span>15s Brand Film</span><span>Motion Identity</span><span>Type &amp; Light</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <p class="kicker fade">What I do</p>
+    <h2 class="headline fade d1">Services, <em>end to end.</em></h2>
+    <div class="svc-grid fade d2">
+      <div class="svc"><span>01</span><h3>Commercial Spots</h3><p>15–30 second product and brand films built for launches, paid social, and pre-roll — concepted, boarded, and delivered ready to run.</p></div>
+      <div class="svc"><span>02</span><h3>Motion Identity</h3><p>Logo reveals, animated wordmarks, and brand motion systems that give your identity a signature move.</p></div>
+      <div class="svc"><span>03</span><h3>Storyboarding &amp; Concept</h3><p>Full creative development: hooks, pacing structure, and frame-by-frame boards engineered around audience retention.</p></div>
+      <div class="svc"><span>04</span><h3>Format Versioning</h3><p>Vertical, square, and horizontal cuts of every deliverable, tailored per platform so one film works everywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="kicker fade">Let's talk</p>
+    <h2 class="headline fade d1">Have a product that<br><em>deserves motion?</em></h2>
+    <p class="fade d2" style="margin:10px 0 34px;opacity:.6">Commissions open for launch films and brand motion.</p>
+    <a class="email fade d2" href="mailto:yurieldbest@gmail.com">yurieldbest@gmail.com</a>
+    <footer class="fade d3">© 2026 Yuriel Gonzalez · Motion Design</footer>
+  </div>
+</section>
+
+<script>
+  const sections=document.querySelectorAll('section');
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const amb=e.target.querySelector('.ambient');
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        if(amb){ if(amb.preload==='none'){amb.preload='auto';amb.load();} amb.play().catch(()=>{}); }
+      }else if(amb){ amb.pause(); }
+    });
+  },{threshold:0.25});
+  sections.forEach(s=>io.observe(s));
+
+  // Pause other case videos when one starts playing
+  const players=document.querySelectorAll('.player video');
+  players.forEach(v=>v.addEventListener('play',()=>players.forEach(o=>{if(o!==v)o.pause();})));
+</script>
+</body>
+</html>
